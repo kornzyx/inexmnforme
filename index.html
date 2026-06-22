@@ -2,11 +2,57 @@
 <html>
 <head>
     <title>My Money App</title>
+    <meta charset="UTF-8">
 </head>
+
 <body>
 
 <h1>เว็บบันทึกรายรับรายจ่าย</h1>
-<p>ทดลองสร้างเว็บสำเร็จ</p>
+
+<!-- input -->
+<input type="text" id="name" placeholder="ชื่อรายการ">
+<input type="number" id="amount" placeholder="จำนวนเงิน">
+
+<!-- ปุ่ม -->
+<button onclick="addIncome()">+ รายรับ</button>
+<button onclick="addExpense()">- รายจ่าย</button>
+
+<h2>รายการ</h2>
+<ul id="list"></ul>
+
+<h2>ยอดรวม: <span id="total">0</span> บาท</h2>
+
+<script>
+let total = 0;
+
+function addIncome() {
+    addItem("รายรับ", +1);
+}
+
+function addExpense() {
+    addItem("รายจ่าย", -1);
+}
+
+function addItem(type, sign) {
+    let name = document.getElementById("name").value;
+    let amount = Number(document.getElementById("amount").value);
+
+    if (!name || !amount) return;
+
+    let list = document.getElementById("list");
+
+    let li = document.createElement("li");
+    li.textContent = type + " : " + name + " " + amount;
+
+    list.appendChild(li);
+
+    total += amount * sign;
+    document.getElementById("total").textContent = total;
+
+    document.getElementById("name").value = "";
+    document.getElementById("amount").value = "";
+}
+</script>
 
 </body>
 </html>
